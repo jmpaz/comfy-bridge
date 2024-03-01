@@ -1,0 +1,153 @@
+{
+  "12": {
+    "inputs": {
+      "samples": [
+        "17",
+        0
+      ],
+      "vae": [
+        "35",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "17": {
+    "inputs": {
+      "seed": 617837238759535,
+      "steps": 40,
+      "cfg": 8.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "36",
+        0
+      ],
+      "positive": [
+        "37",
+        0
+      ],
+      "negative": [
+        "38",
+        0
+      ],
+      "latent_image": [
+        "35",
+        1
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "18": {
+    "inputs": {
+      "filename_prefix": "API",
+      "images": [
+        "12",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "25": {
+    "inputs": {
+      "switch_1": "Off",
+      "lora_name_1": "None",
+      "model_weight_1": 0.8,
+      "clip_weight_1": 1,
+      "switch_2": "Off",
+      "lora_name_2": "None",
+      "model_weight_2": 0.9,
+      "clip_weight_2": 1,
+      "switch_3": "Off",
+      "lora_name_3": "None",
+      "model_weight_3": 1,
+      "clip_weight_3": 1
+    },
+    "class_type": "CR LoRA Stack",
+    "_meta": {
+      "title": "LoRA Stack"
+    }
+  },
+  "35": {
+    "inputs": {
+      "base_ckpt_name": "sd_xl_base_1.0.safetensors",
+      "base_clip_skip": -2,
+      "refiner_ckpt_name": "sd_xl_base_1.0.safetensors",
+      "refiner_clip_skip": -2,
+      "positive_ascore": 6,
+      "negative_ascore": 2,
+      "vae_name": "Baked VAE",
+      "positive": "a beautiful landscape",
+      "negative": "poor quality",
+      "token_normalization": "none",
+      "weight_interpretation": "A1111",
+      "empty_latent_width": 1024,
+      "empty_latent_height": 1024,
+      "batch_size": 1,
+      "lora_stack": [
+        "25",
+        0
+      ]
+    },
+    "class_type": "Eff. Loader SDXL",
+    "_meta": {
+      "title": "Eff. Loader SDXL"
+    }
+  },
+  "36": {
+    "inputs": {
+      "sdxl_tuple": [
+        "35",
+        0
+      ]
+    },
+    "class_type": "Unpack SDXL Tuple",
+    "_meta": {
+      "title": "Unpack SDXL Tuple"
+    }
+  },
+  "37": {
+    "inputs": {
+      "Input": 2,
+      "conditioning1": [
+        "36",
+        2
+      ],
+      "conditioning2": [
+        "36",
+        6
+      ]
+    },
+    "class_type": "CR Conditioning Input Switch",
+    "_meta": {
+      "title": "Base/Refiner (+)"
+    }
+  },
+  "38": {
+    "inputs": {
+      "Input": 2,
+      "conditioning1": [
+        "36",
+        3
+      ],
+      "conditioning2": [
+        "36",
+        7
+      ]
+    },
+    "class_type": "CR Conditioning Input Switch",
+    "_meta": {
+      "title": "Base/Refiner (-)"
+    }
+  }
+}
