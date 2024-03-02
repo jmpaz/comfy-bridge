@@ -32,7 +32,7 @@ class Generation:
         seed=None,
         loras=None,
     ):
-        self.workflow_path = "data/workflows/sdxl-lora.json"
+        self.workflow_path = "workflows/sdxl-lora.json"
         self.prompt = prompt
         self.prompt_negative = prompt_negative
         self.width = width
