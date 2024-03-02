@@ -31,8 +31,9 @@ class Generation:
         cfg,
         seed=None,
         loras=None,
+        workflow_path="workflows/sdxl-lora.json",
     ):
-        self.workflow_path = "workflows/sdxl-lora.json"
+        self.workflow_path = workflow_path
         self.prompt = prompt
         self.prompt_negative = prompt_negative
         self.width = width
