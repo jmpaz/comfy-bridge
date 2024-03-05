@@ -1,0 +1,26 @@
+```py
+# ruff: noqa: E402
+```
+
+# Workflows
+
+## Define a `Generation` to perform normal inference
+```python
+from comfy_bridge.client import Generation
+
+gen = Generation(
+    prompt="a beautiful skyline at sunset",
+    width=832,
+    height=1216,
+    use_refiner=False,
+    sampler="euler",
+    scheduler="normal",
+    steps=20,
+    cfg=4.0,
+    seed=None,
+)
+
+gen_result = gen.output
+
+```
+
