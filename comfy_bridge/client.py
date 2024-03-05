@@ -88,6 +88,26 @@ class Generation:
             workflow["25"]["inputs"][f"clip_weight_{i}"] = lora.clip_weight
 
 
+def upscale(input_image, params, mode="lsdr"):
+    if mode != "lsdr":
+        raise ValueError(
+            f"Unsupported mode: {mode}. Only 'lsdr' is currently supported."
+        )
+
+    def set_values(workflow: dict, params):
+        # TODO: validate input parameters
+        workflow["3"]["inputs"]["image"] = os.path.abspath(params["image_path"])
+        workflow["2"]["inputs"]["steps"] = params["steps"]
+        workflow["2"]["inputs"]["pre_downscale"] = params["pre_downscale"]
+        workflow["2"]["inputs"]["post_downscale"] = params["post_downscale"]
+        workflow["2"]["inputs"]["downsample_method"] = params["downsample_method"]
+        return workflow
+
+    workflow = set_values(
+        read_workflow_from_file("workflows/upscale_ldsr.json"), params
+    )
+    return call_api(workflow, output_dir="outputs/comfy/upscale")
+
 
 ## Server configuration and helper functions
 server_address = "127.0.0.1:8188"

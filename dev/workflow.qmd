@@ -24,3 +24,22 @@ gen_result = gen.output
 
 ```
 
+
+
+## Upscale
+
+### LDSR
+```py
+from comfy_bridge.client import upscale
+
+ldsr_params = {
+    'image_path': 'outputs/comfy/20240305-083636_03a6bd43-3471-4daa-bbe9-d7778f731007.png',
+    'steps': '100',
+    'pre_downscale': 'None',
+    'post_downscale': 'None',
+    'downsample_method': 'Lanczos',
+}
+
+upscale_result = upscale(gen_result, ldsr_params, mode="lsdr")
+
+```

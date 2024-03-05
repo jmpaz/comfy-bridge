@@ -1,0 +1,42 @@
+{
+  "2": {
+    "inputs": {
+      "model": "ldsr.ckpt",
+      "steps": "100",
+      "pre_downscale": "None",
+      "post_downscale": "None",
+      "downsample_method": "Lanczos",
+      "images": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "LDSRUpscaler",
+    "_meta": {
+      "title": "LDSR Upscale"
+    }
+  },
+  "3": {
+    "inputs": {
+      "image": "wallpaper.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "5": {
+    "inputs": {
+      "filename_prefix": "API",
+      "images": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  }
+}
