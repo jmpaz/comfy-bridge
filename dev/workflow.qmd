@@ -20,7 +20,7 @@ gen = Generation(
     seed=None,
 )
 
-gen_result = gen.output
+gen_result = gen.output[0]
 
 ```
 
@@ -33,7 +33,6 @@ gen_result = gen.output
 from comfy_bridge.client import upscale
 
 ldsr_params = {
-    'image_path': 'outputs/comfy/20240305-083636_03a6bd43-3471-4daa-bbe9-d7778f731007.png',
     'steps': '100',
     'pre_downscale': 'None',
     'post_downscale': 'None',
@@ -41,5 +40,4 @@ ldsr_params = {
 }
 
 upscale_result = upscale(gen_result, ldsr_params, mode="lsdr")
-
 ```

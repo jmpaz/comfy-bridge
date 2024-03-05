@@ -2,6 +2,7 @@ import json
 import uuid
 import os
 import io
+import tempfile
 from PIL import Image
 from datetime import datetime
 from urllib import request, parse
@@ -94,9 +95,13 @@ def upscale(input_image, params, mode="lsdr"):
             f"Unsupported mode: {mode}. Only 'lsdr' is currently supported."
         )
 
+    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp:
+        input_image.save(temp.name, format="PNG")
+        image_path = temp.name
+
     def set_values(workflow: dict, params):
         # TODO: validate input parameters
-        workflow["3"]["inputs"]["image"] = os.path.abspath(params["image_path"])
+        workflow["3"]["inputs"]["image"] = os.path.abspath(image_path)
         workflow["2"]["inputs"]["steps"] = params["steps"]
         workflow["2"]["inputs"]["pre_downscale"] = params["pre_downscale"]
         workflow["2"]["inputs"]["post_downscale"] = params["post_downscale"]
@@ -106,7 +111,9 @@ def upscale(input_image, params, mode="lsdr"):
     workflow = set_values(
         read_workflow_from_file("workflows/upscale_ldsr.json"), params
     )
-    return call_api(workflow, output_dir="outputs/comfy/upscale")
+    result = call_api(workflow, output_dir="outputs/comfy/upscale")
+    os.remove(image_path)
+    return result
 
 
 ## Server configuration and helper functions
