@@ -46,6 +46,14 @@ class Generation:
         self.seed = seed
         self.loras = loras if loras is not None else []
 
+        # Inference call
+        self.output = self.inference()
+
+    def inference(self):
+        workflow = read_workflow_from_file(self.workflow_path)
+        self.set_values(workflow)
+        return call_api(workflow, output_dir="outputs/comfy/")
+
     def set_values(self, workflow):
         # Override the workflow's default values before calling the API
         workflow["35"]["inputs"]["positive"] = self.prompt
@@ -79,10 +87,6 @@ class Generation:
             workflow["25"]["inputs"][f"model_weight_{i}"] = lora.model_weight
             workflow["25"]["inputs"][f"clip_weight_{i}"] = lora.clip_weight
 
-    def inference(self):
-        workflow = read_workflow_from_file(self.workflow_path)
-        self.set_values(workflow)
-        return call_api(workflow, output_dir="outputs/comfy/")
 
 
 ## Server configuration and helper functions
