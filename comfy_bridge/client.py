@@ -21,7 +21,6 @@ class Generation:
     def __init__(
         self,
         prompt,
-        prompt_negative,
         width,
         height,
         use_refiner,
@@ -29,6 +28,7 @@ class Generation:
         scheduler,
         steps,
         cfg,
+        prompt_negative=None,
         seed=None,
         loras=None,
         workflow_path="workflows/sdxl-lora.json",
@@ -49,7 +49,8 @@ class Generation:
     def set_values(self, workflow):
         # Override the workflow's default values before calling the API
         workflow["35"]["inputs"]["positive"] = self.prompt
-        workflow["35"]["inputs"]["negative"] = self.prompt_negative
+        if self.prompt_negative:
+            workflow["35"]["inputs"]["negative"] = self.prompt_negative
         workflow["35"]["inputs"]["empty_latent_width"] = self.width
         workflow["35"]["inputs"]["empty_latent_height"] = self.height
 
