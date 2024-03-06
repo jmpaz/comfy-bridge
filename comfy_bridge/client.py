@@ -90,11 +90,11 @@ class Generation:
 
 
 def upscale(
-    input_image, params, mode="lsdr", workflow_path="workflows/upscale_ldsr.json"
+    input_image, params, mode="ldsr", workflow_path="workflows/upscale_ldsr.json"
 ):
-    if mode != "lsdr":
+    if mode != "ldsr":
         raise ValueError(
-            f"Unsupported mode: {mode}. Only 'lsdr' is currently supported."
+            f"Unsupported mode: {mode}. Only 'ldsr' is currently supported."
         )
 
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp:

@@ -39,5 +39,5 @@ ldsr_params = {
     'downsample_method': 'Lanczos',
 }
 
-upscale_result = upscale(gen_result, ldsr_params, mode="lsdr")
+upscale_result = upscale(gen_result, ldsr_params, mode="ldsr")
 ```
